@@ -1,13 +1,12 @@
 #!/bin/bash
 
-#getting server information from the script.
-#   Author: Mr.Sunil Kumar
+#  Getting server information from the script.
+#     Author: Mr.Sunil Kumar
+#     Name: getsysinfo
+#     File: getsysinfo.sh
+#     Created: May 30, 2013
 #
-#   Name: getsysinfo
-#   File: getsysinfo.sh
-#   Created: May 30, 2013
-#
-#   Purpose: Extracts the system information
+#   Purpose: Extracting the system information 
 #
 # --------------------------------------------
 
@@ -15,13 +14,15 @@
 #### General Information on the server
 
 #OS=`cat /etc/SuSE-release | awk '{print $1}' | head -1`
-JUMP=`ls /etc/SuSE-release`
+OS=`cat /etc/issue | head -1 | awk -F" " '{print $1}'`
+#JUMP=`ls /etc/SuSE-release`  
 
-if [ $JUMP = "openSUSE"]; then
-OS="openSUSE"
-else 
-OS="CentOS"
-fi
+#if [ "$OS" = "CentOS" ] 
+#then
+#OS="openSUSE"
+#else 
+#OS="CentOS"
+#fi
 
 case $OS in
 openSUSE) 
@@ -89,8 +90,6 @@ echo -e "\e[00;35mGateway        \e[00m"               : $eth2gw
 ;;
 
 CentOS|Red|red) 
-
-echo -e "Redhat/Centos ..."
 
 echo -e "\e[00;31mOS:`cat /etc/issue | head -1 | awk -F" " '{print $1}'`\e[00m "
 
