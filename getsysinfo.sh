@@ -5,31 +5,25 @@
 #     Name: getsysinfo
 #     File: getsysinfo.sh
 #     Created: May 30, 2013
+#     Contact: sunlnx@gmail.com
 #
-#   Purpose: Extracting the system information 
+#  Purpose: Extracting the system information
 #
 # --------------------------------------------
 
-
 #### General Information on the server
 
-#OS=`cat /etc/SuSE-release | awk '{print $1}' | head -1`
-OS=`cat /etc/issue | head -1 | awk -F" " '{print $1}'`
-#JUMP=`ls /etc/SuSE-release`  
-
-#if [ "$OS" = "CentOS" ] 
-#then
-#OS="openSUSE"
-#else 
-#OS="CentOS"
-#fi
-
+if [ -f /etc/SuSE-release  ]; then
+OS="openSUSE"
+else
+OS="Red Hat"
+fi
 case $OS in
 openSUSE) 
 
 echo -e "\e[00;31mOS:`uname -n`\e[00m "
 
-UPTIME=`uptime | tr -s " " | awk -F" " '{print $3}' | sed '$s/.$//'`
+UPTIME=`uptime | tr -s " " | awk -F" " '{print $3 " " $4}' | sed '$s/.$//'`
 CPUSPEED=`cat /proc/cpuinfo | grep "model name" | cut -d"@" -f2`
 #TRAM=`free -m | tr -s ' ' | grep ^Mem | awk -F" " '{print $2}'`
 TOTALRAM=`cat /proc/meminfo  | grep ^MemTotal  | awk -F":" '{print $2}'`
@@ -46,13 +40,21 @@ hddnum=( $(ls /dev/sd?) )
 FIRSTNWADAPTER=`for i in "${arr[@]}"; do echo $i; done | awk -F"-" '{print $2}'  | head -1`
 SECONDNWADAPTER=`for i in "${arr[@]}"; do echo $i; done | awk -F"-" '{print $2}'  | tail -1`
 harddisk=`for i in "${hddnum[@]}"; do echo $i; done | sed 's/^.\{5\}//'`
+
+if [ $ETHCOUNT -eq 1 ]; then 
 ETH0=`ifconfig -a | grep $FIRSTNWADAPTER | awk '{print $1}'`
 IPADDRETH0=`ifconfig -a | grep "inet addr" | head -1 | cut -d":" -f2 | awk '{print $1}'`
 eth1gw=`route -n | egrep "Gateway|$FIRSTNWADAPTER" | grep -v Gateway | head -1 | awk -F" " '{print $2}'`
-eth2gw=`route -n | egrep "Gateway|$SECONDNWADAPTER"| grep -v Gateway | tail -1 | awk -F" " '{print $2}'`
+else
+
+ETH0=`ifconfig -a | grep $FIRSTNWADAPTER | awk '{print $1}'`
+IPADDRETH0=`ifconfig -a | grep "inet addr" | head -1 | cut -d":" -f2 | awk '{print $1}'`
+eth1gw=`route -n | egrep "Gateway|$FIRSTNWADAPTER" | grep -v Gateway | head -1 | awk -F" " '{print $2}'`
+
 ETH1=`ifconfig -a | grep $SECONDNWADAPTER| awk '{print $1}'`
 IPADDRETH1=`ifconfig -a | grep "inet addr" | head -2  | cut -d":" -f2 | awk '{print $1}'|tail -1`
-
+eth2gw=`route -n | egrep "Gateway|$SECONDNWADAPTER"| grep -v Gateway | tail -1 | awk -F" " '{print $2}'` 
+fi
 
 ##### Hardware information on the system  #####
 
@@ -89,11 +91,10 @@ echo -e "\e[00;35m$SECONDNWADAPTER    \e[00m       " : $IPADDRETH1
 echo -e "\e[00;35mGateway        \e[00m"               : $eth2gw
 ;;
 
-CentOS|Red|red) 
+CentOS|"Red Hat") 
+echo -e "\e[00;31mOS:`cat /etc/issue | head -1 | awk -F" " '{print $1 " " $2}'`\e[00m "
 
-echo -e "\e[00;31mOS:`cat /etc/issue | head -1 | awk -F" " '{print $1}'`\e[00m "
-
-UPTIME=`uptime | tr -s " " | awk -F" " '{print $3}' | sed '$s/.$//'`
+UPTIME=`uptime | tr -s " " | awk -F" " '{print $3 " " $4}' | sed '$s/.$//'`
 CPUSPEED=`cat /proc/cpuinfo | grep "model name" | cut -d"@" -f2`
 #TRAM=`free -m | tr -s ' ' | grep ^Mem | awk -F" " '{print $2}'`
 TOTALRAM=`cat /proc/meminfo  | grep ^MemTotal  | awk -F":" '{print $2}'`
@@ -114,24 +115,39 @@ FIRSTNWADAPTER=${arr[0]}
 #SECONDNWADAPTER=`for i in "${arr[@]}"; do echo $i; done | awk -F"-" '{print $2}'  | tail -1`
 SECONDNWADAPTER=${arr[1]}
 harddisk=`for i in "${hddnum[@]}"; do echo $i; done | sed 's/^.\{5\}//'`
+
+if [ $ETHCOUNT -eq 1 ]; then
+ETH0=`ifconfig -a | grep $FIRSTNWADAPTER | awk '{print $1}'`
+IPADDRETH0=`ifconfig -a | grep "inet addr" | head -1 | cut -d":" -f2 | awk '{print $1}'` 
+#eth1gw=`route -n | egrep "Gateway|$FIRSTNWADAPTER" | grep -v Gateway | head -1 | awk -F" " '{print $2}'`
+eth1gw=`cat /etc/sysconfig/network-scripts/ifcfg-$FIRSTNWADAPTER | grep GATEWAY | awk -F"=" '{print $2}'` 
+NETMASK1=`cat /etc/sysconfig/network-scripts/ifcfg-$FIRSTNWADAPTER | grep NETMASK | awk -F"=" '{print $2}'` 
+#eth2gw=`route -n | egrep "Gateway|$SECONDNWADAPTER"| grep -v Gateway | tail -1 | awk -F" " '{print $2}'`
+else
+
 ETH0=`ifconfig -a | grep $FIRSTNWADAPTER | awk '{print $1}'`
 IPADDRETH0=`ifconfig -a | grep "inet addr" | head -1 | cut -d":" -f2 | awk '{print $1}'`
 #eth1gw=`route -n | egrep "Gateway|$FIRSTNWADAPTER" | grep -v Gateway | head -1 | awk -F" " '{print $2}'`
 eth1gw=`cat /etc/sysconfig/network-scripts/ifcfg-$FIRSTNWADAPTER | grep GATEWAY | awk -F"=" '{print $2}'`
-#eth2gw=`route -n | egrep "Gateway|$SECONDNWADAPTER"| grep -v Gateway | tail -1 | awk -F" " '{print $2}'`
-eth2gw=`cat /etc/sysconfig/network-scripts/ifcfg-$SECONDNWADAPTER | grep GATEWAY | awk -F"=" '{print $2}'`
-ETH1=`ifconfig -a | grep $SECONDNWADAPTER| awk '{print $1}'`
-IPADDRETH1=`ifconfig -a | grep "inet addr" | head -2  | cut -d":" -f2 | awk '{print $1}'|tail -1`
 NETMASK1=`cat /etc/sysconfig/network-scripts/ifcfg-$FIRSTNWADAPTER | grep NETMASK | awk -F"=" '{print $2}'`
-NETMASK2=`cat /etc/sysconfig/network-scripts/ifcfg-$SECONDNWADAPTER | grep NETMASK | awk -F"=" '{print $2}'`
+
+ETH1=`ifconfig -a | grep $SECONDNWADAPTER| awk '{print $1}'`
+eth2gw=`cat /etc/sysconfig/network-scripts/ifcfg-$SECONDNWADAPTER | grep GATEWAY | awk -F"=" '{print $2}'`
+IPADDRETH1=`ifconfig -a | grep "inet addr" | head -2  | cut -d":" -f2 | awk '{print $1}'|tail -1`
+NETMASK2=`cat /etc/sysconfig/network-scripts/ifcfg-$SECONDNWADAPTER | grep NETMASK | awk -F"=" '{print $2}'` 
+
+fi
 
 ##### Hardware information on the system  #####
 
 SERIAL=`dmidecode | grep -i "Serial Number" | uniq -c | head -1 | awk -F" " '{print $4}'`
 PRODUCT=`dmidecode | grep -i "Product Name" | head -1 | awk -F":" '{print $2}'`
-ARCH=`lscpu | grep Architecture | awk -F":" '{print $2}'`
-CPUOPS=`lscpu | grep op-mode | awk -F":" '{print $2}'`
-CPUCOUNT=`lscpu | grep "CPU(s):" | awk -F":" '{print $2}'`
+
+#ARCH=`lscpu | grep Architecture | awk -F":" '{print $2}'`
+ARCH=`uname -m`
+CPUOPS=`lscpu | grep op-mode | awk -F":" '{print $2}'` 2>/dev/null
+#CPUCOUNT=`lscpu | grep "CPU(s):" | awk -F":" '{print $2}'`
+CPUCOUNT=`cat /proc/cpuinfo | grep processor | wc -l`
 
 
 #Display Hardware/System informations
@@ -154,12 +170,24 @@ echo -e "\e[00;35mcpucount       \e[00m" : $CPUCOUNT
 ### Displaying ethernet adapters
 
 #echo -e "\e[00;35methadapters    \e[00m"               : $ETHCOUNT
+if [ $ETHCOUNT -eq 1 ]; then
+
 echo -e "\e[00;35m$FIRSTNWADAPTER    \e[00m       " : $IPADDRETH0
 echo -e "\e[00;35mGateway        \e[00m"              : $eth1gw
 echo -e "\e[00;35mGenmask        \e[00m"             : $NETMASK1
+
+else
+
+echo -e "\e[00;35m$FIRSTNWADAPTER    \e[00m       " : $IPADDRETH0
+echo -e "\e[00;35mGateway        \e[00m"              : $eth1gw
+echo -e "\e[00;35mGenmask        \e[00m"             : $NETMASK1
+
+
 echo -e "\e[00;35m$SECONDNWADAPTER    \e[00m       "  : $IPADDRETH1
 echo -e "\e[00;35mGateway        \e[00m"               : $eth2gw
 echo -e "\e[00;35mGenmask        \e[00m"             : $NETMASK2
+
+fi
 
 ;;
 
@@ -167,4 +195,3 @@ echo -e "\e[00;35mGenmask        \e[00m"             : $NETMASK2
 echo "This script is designed only for Redhat/SuSE"
 ;;
 esac
-
