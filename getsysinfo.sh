@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+#---------------------------------------------
 #  Getting server information from the script.
 #     Author: Mr.Sunil Kumar
 #     Name: getsysinfo
@@ -11,7 +13,8 @@
 #
 # --------------------------------------------
 
-#### General Information on the server
+# General Information on the server
+
 
 if [ -f /etc/SuSE-release  ]; then
 OS="openSUSE"
@@ -148,7 +151,6 @@ ARCH=`uname -m`
 CPUOPS=`lscpu | grep op-mode | awk -F":" '{print $2}'` 2>/dev/null
 #CPUCOUNT=`lscpu | grep "CPU(s):" | awk -F":" '{print $2}'`
 CPUCOUNT=`cat /proc/cpuinfo | grep processor | wc -l`
-
 
 #Display Hardware/System informations
 
