@@ -159,6 +159,6 @@ fi
 ;;
 
 *)
-echo "This script is designed only for Redhat/CentOS/OpenSuSE/SuSE"
+echo "This script is designed only for Redhat/CentOS/OpenSuSE"
 ;;
 esac
