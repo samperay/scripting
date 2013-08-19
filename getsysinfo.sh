@@ -26,7 +26,7 @@ case $OS in
 openSUSE) 
 
 echo -e "\e[00;31mOS:`uname -n`\e[00m "
-UPTIME=`uptime | tr -s " " | awk -F" " '{print $3 " " $4}' | sed '$s/.$//'`
+UPTIME=`uptime | tr -s " " | awk -F" " '{print $3 " " $4}' | sed 's/^\(.*\)..\{2\}$/\1/g'`
 CPUSPEED=`cat /proc/cpuinfo | grep "model name" | cut -d"@" -f2`
 #TRAM=`free -m | tr -s ' ' | grep ^Mem | awk -F" " '{print $2}'`
 TOTALRAM=`cat /proc/meminfo  | grep ^MemTotal  | awk -F":" '{print $2}'`
@@ -87,10 +87,11 @@ echo -e "\e[00;35mGateway        \e[00m"               : $eth2gw
 CentOS|"Red Hat") 
 
 echo -e "\e[00;31mOS:`cat /etc/issue | head -1 | awk -F" " '{print $1 " " $2}'`\e[00m "
-UPTIME=`uptime | tr -s " " | awk -F" " '{print $3 " " $4}' | sed '$s/.$//'`
+UPTIME=`uptime | tr -s " " | awk -F" " '{print $3 " " $4}' | sed 's/^\(.*\)..\{2\}$/\1/g'`
 CPUSPEED=`cat /proc/cpuinfo | grep "model name" | cut -d"@" -f2`
 TOTALRAM=`cat /proc/meminfo  | grep ^MemTotal  | awk -F":" '{print $2}'`
-OSVER=`cat /etc/issue | head -1 | awk -F" " '{print $3 " " $4}'`
+#OSVER=`cat /etc/issue | head -1 | awk -F" " '{print $3 " " $4}'`
+OSVER=`cat /etc/issue | head -1`
 KERVER=`uname -a | tr -s ' ' | awk -F" " '{print $3}'`
 NUMHDD=`ls /dev/sd? | wc -l`
 CPUINFO=`cat /proc/cpuinfo | grep "model name" | cut -d" " -f3,4,5`
