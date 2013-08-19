@@ -9,7 +9,7 @@
 #  Purpose: Extracting the system information
 #
 
-## This script is designed only for Redhat/CentOS/SuSE/OpenSuSE
+## This script is designed only for Redhat/CentOS/OpenSuSE
 
 
 ## Check which version of Linux.
