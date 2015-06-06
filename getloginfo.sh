@@ -9,6 +9,7 @@
 #   Purpose: Extracting the log information when Incident occured
 #
 
+#!/bin/bash
 LOGFILE="/var/log/messages"
 
 echo "Enter the time stamp to search in log files"
@@ -21,4 +22,10 @@ echo;
 echo -e "\e[00;31mLogs which occured in mentioned timestamp: $DAY"-"$MONTH"-"$HOUR":00" \e[00m"
 echo;
 
-cat $LOGFILE | grep "$HOUR:[0-5][0-9]" | grep -i -n "$MONTH $DAY" 
+if [ $DAY -lt 9 ]
+then
+BLANK=" "
+cat $LOGFILE | grep "$HOUR:[0-5][0-9]" | grep -i -n "$MONTH $BLANK$DAY"
+else
+cat $LOGFILE | grep "$HOUR:[0-5][0-9]" | grep -i -n "$MONTH $DAY"
+fi
