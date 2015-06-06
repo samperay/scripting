@@ -51,12 +51,12 @@ DRIVESTAT=$?
                 if [ -d "/media" ]
                   then
                                 echo "media exists && attempting to mounting image...."
-                                mount /dev/sr0 /media >/dev/null
+                                mount /dev/sr0 /media 2>/dev/null
                                 [ $? -eq 0 ] && echo "image mount successful!";echo || echo "image unable to mount";echo
                   else
                    echo "/media doesn't exist, creating and mounting image";echo
                    mkdir /media
-                   mount /dev/sr0 /media;echo
+                   mount /dev/sr0 /media >/dev/null;echo
                 fi
         fi
 
@@ -67,9 +67,9 @@ mount_drive
 
 #if you had installed minimal installation on the server, then you need to install the 'deps' package before
 #creating the repository
-echo -----------------------------------------------------------------------------
-echo " Logs for this script are written in /tmp/$LOGFILE"
-echo -----------------------------------------------------------------------------
+echo --------------------------------
+echo " Logs written @ $LOGFILE"
+echo --------------------------------
 
 echo;
 echo "Installing the dependencies before creating reposiotry" 2>&1 | tee $LOGFILE
@@ -95,7 +95,7 @@ echo
 read -n1 -p "$DIR has 4.2G of free space in the Disk or LV ?[y/n]:" ch
 #echo "$DIR has 4.2G of free space in the Disk or LV ?:[y/n] "
 #read ch
-
+echo
 case $ch in
         y|Y) echo "copying packages to $DIR/$LOCALREPO"
                cp -arvf /media/* $DIR/$LOCALREPO  >>$LOGFILE 2>&1
