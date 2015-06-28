@@ -27,10 +27,14 @@ REPONAME=centos7
 LOGFILE=/tmp/centosrepo_output.log
 
 # Check your DVD is available in the drive
-
 function check_drive {
 blkid /dev/sr0 >/dev/null
-[ $? -eq  0 ] && echo "Installation image available";return 0 ||echo "Installation image un-available, insert image and try again"; exit
+if [ $? -eq 0 ]
+        then
+                return 0
+        else
+                return 1
+fi
 }
 
 # mount your DVD to some temp mount point
@@ -41,7 +45,6 @@ check_drive
 
 #getting the return status from the fucntion called.
 DRIVESTAT=$?
-
 
 #mount DVD/ISO to some mount point on successful
 
@@ -58,6 +61,10 @@ DRIVESTAT=$?
                    mkdir /media
                    mount /dev/sr0 /media >/dev/null;echo
                 fi
+
+        else
+                echo "Please insert the DVD/ISO image... exiting .."
+                exit
         fi
 
 }
