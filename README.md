@@ -1,2 +1,2 @@
 # scripting
-Contains code for Bash shell scripts for interview purposes or code as part of hobby
+Contains code for bash shell scripts as part of examples/exercises
