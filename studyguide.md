@@ -4,4 +4,3 @@ These contains materials related to *shell scripting* and interview questions wh
 
 # Shell Concepts
 
-# Interview FAQ
