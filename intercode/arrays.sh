@@ -23,3 +23,5 @@ for item in ${numbers[*]}
 do
 	echo "Traverse using $*: "$item
 done
+
+echo "--------"
