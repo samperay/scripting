@@ -51,3 +51,9 @@ for ((i=0;i<len;i++))
 do
   echo Index:$i,each element:${numbers[$i]}
 done
+
+# Iterate via index 
+for ((i=0;i<${#numbers[@]};i++))
+do
+  echo ${numbers[i]}
+done
