@@ -1,28 +1,21 @@
 #!/bin/bash
 
-# Not working on any of the secrets for production.
-# "arn:aws:eks:us-east-1:164460733193:cluster/blueplanet-brillprod-eks-cluster"
-# "arn:aws:eks:us-east-1:164460733193:cluster/blueplanet-prod-eks-cluster"
-#
-
 kube_context=(
-"arn:aws:eks:us-east-1:906862171241:cluster/blueplanet-demoeast-eks-cluster"
-"arn:aws:eks:us-east-1:906862171241:cluster/blueplanet-soaktesteast-eks-cluster"
-"arn:aws:eks:us-east-1:906862171241:cluster/blueplanet-testeast-eks-cluster"
-"arn:aws:eks:us-east-1:906862171241:cluster/bp-dev-eks-cluster"
-"arn:aws:eks:us-east-1:287765525872:cluster/bo-bsoaktest-eks-cluster"
-"arn:aws:eks:us-east-1:287765525872:cluster/bo-btest-eks-cluster"
-"arn:aws:eks:us-east-1:287765525872:cluster/bo-develop-eks-cluster"
-"arn:aws:eks:us-east-1:906862171241:cluster/blueplanet-aaatest-eks-cluster"
-"arn:aws:eks:us-east-1:287765525872:cluster/bo-devops-eks-cluster"
-"arn:aws:eks:us-east-1:164460733193:cluster/blueplanet-brillprod-eks-cluster"
-"arn:aws:eks:us-east-1:164460733193:cluster/blueplanet-prod-eks-cluster"
+"arn:aws:eks:us-east-1:awsacct:cluster/bp-demoeast-eks-cluster"
+"arn:aws:eks:us-east-1:awsacct:cluster/bp-soaktesteast-eks-cluster"
+"arn:aws:eks:us-east-1:awsacct:cluster/bp-testeast-eks-cluster"
+"arn:aws:eks:us-east-1:awsacct:cluster/bp-dev-eks-cluster"
+"arn:aws:eks:us-east-1:awsacct:cluster/bo-bsoaktest-eks-cluster"
+"arn:aws:eks:us-east-1:awsacct:cluster/bo-btest-eks-cluster"
+"arn:aws:eks:us-east-1:awsacct:cluster/bo-develop-eks-cluster"
+"arn:aws:eks:us-east-1:awsacct:cluster/bp-aaatest-eks-cluster"
+"arn:aws:eks:us-east-1:awsacct:cluster/bo-devops-eks-cluster"
 )
 
 function prod(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:164460733193:cluster/blueplanet-prod-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bp-prod-eks-cluster"
   )
   getallenvsecrets
 }
@@ -30,7 +23,7 @@ function prod(){
 function brillprod(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:164460733193:cluster/blueplanet-brillprod-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bp-brillprod-eks-cluster"
   )
   getallenvsecrets
 }
@@ -38,7 +31,7 @@ function brillprod(){
 function dev(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:906862171241:cluster/bp-dev-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bp-dev-eks-cluster"
   )
   getallenvsecrets
 }
@@ -46,7 +39,7 @@ function dev(){
 function demoeast(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:906862171241:cluster/blueplanet-demoeast-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bp-demoeast-eks-cluster"
   )
   getallenvsecrets
 }
@@ -54,7 +47,7 @@ function demoeast(){
 function testeast(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:906862171241:cluster/blueplanet-testeast-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bp-testeast-eks-cluster"
   )
   getallenvsecrets
 }
@@ -62,7 +55,7 @@ function testeast(){
 function soaktesteast(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:906862171241:cluster/blueplanet-soaktesteast-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bp-soaktesteast-eks-cluster"
   )
   getallenvsecrets
 }
@@ -70,7 +63,7 @@ function soaktesteast(){
 function aaatest(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:906862171241:cluster/blueplanet-aaatest-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bp-aaatest-eks-cluster"
   )
   getallenvsecrets
 }
@@ -78,7 +71,7 @@ function aaatest(){
 function develop(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:287765525872:cluster/bo-develop-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bo-develop-eks-cluster"
   )
   getallenvsecrets
 }
@@ -86,7 +79,7 @@ function develop(){
 function btest(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:287765525872:cluster/bo-btest-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bo-btest-eks-cluster"
   )
   getallenvsecrets
 }
@@ -94,7 +87,7 @@ function btest(){
 function bsoaktest(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:287765525872:cluster/bo-bsoaktest-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bo-bsoaktest-eks-cluster"
   )
   getallenvsecrets
 }
@@ -102,7 +95,7 @@ function bsoaktest(){
 function devops(){
   clear
   kube_context=(
-  "arn:aws:eks:us-east-1:287765525872:cluster/bo-devops-eks-cluster"
+  "arn:aws:eks:us-east-1:awsacct:cluster/bo-devops-eks-cluster"
   )
   getallenvsecrets
 }
@@ -149,8 +142,6 @@ do
   echo "btest"
   echo "devops"
   echo
-  echo "prod"
-  echo "brillprod"
   echo
   echo "exit"
 
@@ -168,8 +159,6 @@ do
     bsoaktest) bsoaktest;;
     btest) btest;;
     devops) devops;;
-    prod) prod;;
-    brillprod) brillprod;;
     exit)echo "Exiting..Good bye .."
          exit;;
   esac
