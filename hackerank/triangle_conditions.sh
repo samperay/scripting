@@ -11,16 +11,16 @@
 
 #!/bin/bash 
 
-a=$1
-b=$2
-c=$3
-
-if [[ ${a} == ${b} ]] && [[ ${b} == ${c} ]] && [[ ${c} == ${a} ]]
+read x;
+read y;
+read z;
+if [ $x -eq $y ] && [ $y -eq $z ]
 then
-  echo EQUILATERAL
-elif [[ ${a} == ${b} ]] || [[ ${a} == ${c} ]] || [[ ${b} == ${c} ]]
+  echo "EQUILATERAL";
+elif [ $x -ne $y ] && [ $x -ne $z ] && [ $y -ne $z ]
 then
-  echo ISOSCELES
-else 
-  echo SCALENE
+  echo "SCALENE";
+else
+  echo "ISOSCELES";
 fi
+
