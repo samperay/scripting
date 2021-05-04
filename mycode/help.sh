@@ -1,12 +1,11 @@
 #!/bin/bash
 
 function help() {
-   echo "Add description of the script functions here."
-   echo
-   echo "Syntax: scriptTemplate [-h|-v]"
+   echo "Syntax: ./script <arg> [-h|-v]"
+   echo 
    echo "options:"
-   echo "-h     Print this Help."
-   echo "-v     Print software version and exit."
+   echo "-h  Print this Help."
+   echo "-v  Print software version and exit."
    echo
 }
 
@@ -19,3 +18,5 @@ do
   esac
 done
 
+
+test $# -ne 1 && help
