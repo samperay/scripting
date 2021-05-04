@@ -2,7 +2,6 @@
 
 # Unit-tests for library script in the current directory
 # Also verifies test script is derived from library filename
-set -x
 
 TEST_FILENAME=$(basename $0)  # prefix-replace needs this in a variable
 SUBJ_FILENAME="${TEST_FILENAME#test-}"; unset TEST_FILENAME
