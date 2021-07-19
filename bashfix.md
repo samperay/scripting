@@ -5,7 +5,7 @@ This document is inverse of what needs to be done on the **bash pitfalls** http:
 I would like to write a short things as what needs to be done instead of what not. however, one must be reading the article to know more.
 
 ## loops
-If you are iterating the loops for the filenames and incase you come across any **white spaces** it should also be considered from the same existing path..
+If you are iterating the loops for the filenames and incase you come across any **white spaces** it should also be considered from the same existing path.
 
 ```
 for file in ./*.csv
