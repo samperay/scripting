@@ -343,4 +343,4 @@ foo 2>&1 >/dev/null             # writes "This is stderr" on the screen
 
 Why do the results differ? In the first case, >/dev/null is performed first, and therefore the standard output of the command is sent to /dev/null. Then, the 2>&1 is performed, which causes standard error to be sent to the same place that standard output is already going. So both of them are discarded.
 
-In the second example, 2>&1 is performed first. This means standard error is sent to wherever standard output happens to be going -- in this case, the user's terminal. Then, standard output is sent to /dev/null and is therefore discarded. So when we run foo the second time, we see only its standard error, not its standard output.
+In the second example, 2>&1 is performed first. This means standard error is sent to wherever standard output happens to be going -- in this case, the user's terminal. Then, standard output is sent to /dev/null and is therefore discarded. So when we run foo the second time, we see only its standard error, not its standard output..
