@@ -9,3 +9,6 @@ what's on this exercises
 - Features recipes for system tools, shell features, and systems administration
 
 - Provides a host of plug and play recipes for to immediately apply and easily modify so the wheel doesn't have to be reinvented with each challenge faced
+
+## TOC
+[Chapter 03](../chap03/README.md)
