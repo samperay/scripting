@@ -70,13 +70,13 @@ its the name of currently executing command. shell builtin which can be useful i
 
 This simple recipe runs a sequence of commands, and tells you what the script was doing when you pressed ^C to interrupt it.
 
-[this subtext](chap03/trap.sh)
+[trap.sh](https://github.com/samperay/scripting/blob/master/ebooks-code-snippets/shell-scripting/chap03/trap.sh)
 
 ## Debugging vars
 
 BASH_SOURCE, FUNCNAME, LINENO and BASH_LINENO are incredibly useful debugging variables
 
-[this subtext](chap03/debug)
+[debug](https://github.com/samperay/scripting/tree/master/ebooks-code-snippets/shell-scripting/chap03/debug)
 
 ## BASH_VERSION
 
@@ -97,4 +97,4 @@ PIPESTATUS is an array of the exit status of the last-run pipeline or command.
 
 This works for PIPESTATUS[0], but for the subsequent calls PIPESTATUS has been reset by the successful echo command
 
-[this subtext](chap03/pipestatus.sh)
+[pipestatus.sh](https://github.com/samperay/scripting/blob/master/ebooks-code-snippets/shell-scripting/chap03/pipestatus.sh)
