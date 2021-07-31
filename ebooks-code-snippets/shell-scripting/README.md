@@ -11,4 +11,4 @@ what's on this exercises
 - Provides a host of plug and play recipes for to immediately apply and easily modify so the wheel doesn't have to be reinvented with each challenge faced
 
 ## TOC
-[Chapter 03](../chap03/README.md)
+[Chapter 03](https://github.com/samperay/scripting/blob/master/ebooks-code-snippets/shell-scripting/chap03/README.md)
