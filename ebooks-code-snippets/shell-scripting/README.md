@@ -12,3 +12,5 @@ what's on this exercises
 
 ## TOC
 [Chapter 03](https://github.com/samperay/scripting/blob/master/ebooks-code-snippets/shell-scripting/chap03/README.md)
+
+[Chapter 06](https://github.com/samperay/scripting/blob/master/ebooks-code-snippets/shell-scripting/chap06/README.md)
