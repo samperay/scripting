@@ -1,6 +1,25 @@
-#!/usr/bin/env sh
+# This script can be used as a reference for writing any scripts
+# that can be used as an installer.
 
+#!/usr/bin/env sh
 set -eu
+
+# Plan Of Action
+: '
+- Define your terminal output colors, variables to be used globally...etc
+- Write an function to detect e.g platform, arch, target.
+- Check if build is available from the repository URL.
+- Prompt to install the binary.
+- Set path for the binary to install in /usr/local/bin
+- Install function to be called
+  - Check for the binary path writable i.e sudo permission exists ?
+  - if sudo exists, then elevate the privilidges
+  - download from the path
+  - unpack the binary to the path
+- Exception handling for vars, case statements, etc 
+'
+
+# Set terminal colors
 BOLD="$(tput bold 2>/dev/null || printf '')"
 GREY="$(tput setaf 0 2>/dev/null || printf '')"
 UNDERLINE="$(tput smul 2>/dev/null || printf '')"
@@ -65,13 +84,12 @@ detect_platform(){
   case "${platform}" in
     darwin) platform="apple-darwin";;
     linux) platform="linux"
-
   esac
-  printf '%s' "${platform}"
 }
 
 if [ -z "${PLATFORM-}" ]; then
   PLATFORM="$(detect_platform)"
+  echo ${PLATFORM}
 fi
 
 # parse argv variables
@@ -80,6 +98,10 @@ while [ "$#" -gt 0 ]; do
     -h | --help)
       usage
       exit
+      ;;
+    *) error "Unknown Option: $1"
+       usage
+       exit 1
       ;;
   esac
 done
