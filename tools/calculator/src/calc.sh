@@ -1,11 +1,28 @@
 LIBPATH="${PWD}/$(dirname $0)/../lib"
-. ${LIBPATH}/setup.env
-. ${LIBPATH}/sum.sh
+source ${LIBPATH}/setup.env
+source ${LIBPATH}/calculations.sh
 
-argscli=$(argsPassed $*)
-if [[ $? -ne 0 ]]; then
-  sumresult=$(sum "$@")
-  echo "Sum: " $?
-else
-  usage
-fi
+set -x
+# Start of the program
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -s| -sum)
+      sum "$@"
+      echo "Sum: " $?
+      exit 0
+      ;;
+    -d| -diff)
+      diff "$@"
+      echo "Difference: " $?
+      exit 0
+      ;;
+    -m| -mul)
+      mul "$@"
+      exit 0
+      ;;
+      *)
+        usage
+        exit 1
+      ;;
+  esac
+done
