@@ -1,0 +1,94 @@
+#!/bin/bash
+
+# this is the init script for the application to
+# start/stop the daemon "appd"
+
+# copy this script and can be downloaded to /etc/init.d/appd
+
+
+Script="appd"
+
+PidFile=/var/run/appd.pid
+INSTDIR=/usr/local/bin
+APPNAME=appd
+
+####################################
+start() {
+  if [ -f $PidFile ]; then
+    echo "Error: $PidFile already exists."
+    exit 1
+  fi
+
+  echo "Starting ${APPNAME}"
+  $INSTDIR/$APPNAME &
+  PID=$!
+  echo $PID > $PidFile
+  exit 0
+}
+####################################
+status() {
+  PID=`cat $PidFile 2>/dev/null`
+  if [ "$?" -ne "0" ]; then
+    echo "${APPNAME} not running"
+    exit 1
+  fi
+
+  if [ -f $PidFile ]; then
+    if [ "`ps -o comm= -p $PID`" != "$APPNAME" ]; then
+      echo "Error: ${APPNAME} ($PID) not running"
+      exit 1
+    fi
+    echo "${APPNAME} ($PID) running"
+    exit $?
+  else
+    exit 1
+  fi
+}
+####################################
+stop() {
+  PID=`cat $PidFile 2>/dev/null`
+  if [ "$?" -eq "0" ]; then
+    kill -9 $PID && rm -f $PidFile && echo "${APPNAME} ($PID) stopped" && exit 0|| exit 1
+  else
+    exit 1
+  fi
+  exit 0
+}
+
+# it should be read from stop and then start, thereby we could elimiate this below function.
+restart() {
+  PID=`cat $PidFile 2>/dev/null`
+  if [ "$?" -eq "0" ]; then
+    kill -9 $PID && rm -f $PidFile && echo "${APPNAME} ($PID) stopped" || exit 1
+  fi
+
+  echo "Starting ${APPNAME}"
+  $INSTDIR/$APPNAME &
+  PID=$!
+  echo $PID > $PidFile
+  exit 0
+}
+
+##################################################################
+#       Start Of Script
+##################################################################
+
+case "$1" in
+   start)
+	start
+	;;
+   stop)
+	stop
+	;;
+   status)
+  status
+	;;
+   restart)
+   restart
+  ;;
+   *)
+	echo "Usage: $Script {start|stop|status|restart}"
+	exit 1
+esac
+
+exit 0

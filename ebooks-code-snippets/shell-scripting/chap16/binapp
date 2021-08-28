@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# application code, that is used to run the program.
+# this code to be placed at /usr/local/bin/appd
+
+# you can control this program from the startup boot scripts
+# i.e /etc/init.d/appd start 
+
+LOGFILE=/tmp/app.log
+[ -f ${LOGFILE} ] && rm -f ${LOGFILE}
+i=1
+while [ "$i" -le 50 ]; do
+  echo "this is my $i application" >>${LOGFILE}
+  sleep 5
+  ((i++))
+done
