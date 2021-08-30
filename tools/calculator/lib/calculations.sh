@@ -17,7 +17,7 @@ function diff() {
   var2="${array_list[2]}"
   #result=$(expr $var1 - $var2 )
   result=$(echo "$var1-$var2"|bc)
-  #return ${result}
+  return ${result}
 }
 
 # Return difference of integers
@@ -28,4 +28,5 @@ function mul() {
   var2=${array_list[2]}
   result=$((${var1} * ${var2}))
   echo "product:" ${result}
+  #return ${result}
 }
