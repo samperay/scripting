@@ -18,7 +18,7 @@ fi
 
 case "$1" in 
   "") lines=50;;
-  *[0-9]*) echo "Usage: `basename $0` lines-tp-cleanup";
+  *[0-9]*) echo "Usage: `basename $0` #lines_to_cleanup";
            exit $E_WRONGARGS;;
   *)      lines=$1;;
 esac
