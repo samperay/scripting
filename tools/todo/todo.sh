@@ -3,6 +3,8 @@
 todolist="./todolist"
 tododone="./tododone"
 
+VERSION=0.0.1
+
 # read options from cli (add,del,done,help)
 readArgs() {
   options="$1"
@@ -19,9 +21,15 @@ readArgs() {
     ;;
     help|"-h"|"--help") helpmenu
     ;;
+    version|"-v"|"--version") displayVersion
+    ;;
     "") tododisplay "$todolist"
     ;;
   esac
+}
+
+displayVersion() {
+  echo "Version: " ${VERSION}
 }
 
 erase() {
@@ -166,6 +174,7 @@ Usage: ./todo.sh < |add|del|done> < |arg1,arg2,arg2>
        todo.sh done - display your done-list
        todo.sh add <entry1,entry2...entryN> - add N entries to your todo-list
        todo.sh del <entry1,entry2...entryN> - delete entries by their order number
+       todo.sh version - display version
 
        INFO: !!! Deleted lines automatically append to your done-list !!!
 
@@ -175,5 +184,4 @@ Usage: ./todo.sh < |add|del|done> < |arg1,arg2,arg2>
 
 ## Main
 readArgs "$@"
-
 exit 0
