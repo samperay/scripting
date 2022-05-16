@@ -1,8 +1,8 @@
 # bashfix
 
-This document is inverse of what needs to be done on the (**bash pitfalls**) [http://mywiki.wooledge.org/BashPitfalls]
+This document refers to common [**bash pitfalls**] (http://mywiki.wooledge.org/BashPitfalls)
 
-I would like to write a short things as what needs to be done instead of what not. however, one must be reading the article to know more.
+we discuss, below on what can be done for the pitfalls. 
 
 ## loops
 If you are iterating the loops for the filenames and incase you come across any **white spaces** it should also be considered from the same existing path.
